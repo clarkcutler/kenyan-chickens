@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		#game{ border: 1px solid black; display: block; margin: auto;}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script>
+		function drawChicken(context) {
+			var chicken = document.getElementById('chicken');
+			console.log(chicken);
+			context.drawImage(chicken, 0, 0);
+		}
+		
+		window.onload = function() {
+			var canvas = document.getElementById("game");  
+			if (canvas.getContext) {  
+			        	var context = canvas.getContext("2d");
+				drawChicken(context);
+			}
+		};
+	</script>
+</head>
+<body>
+	<img style="display: none;" id="chicken" src="chicken.png">
+	<canvas id="game" width="640" height="480">
+		This game requires a browser that supports the HTML5 canvas element.
+	</canvas>
+	
+</body>
+</html>
