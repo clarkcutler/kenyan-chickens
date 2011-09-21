@@ -6,22 +6,31 @@
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script>
-		var chicken;
+		var chickenImg;
 		var canvas;
 		var context;
+		var chickens = [];
 		
-		window.onload = function() {
-			chicken = document.getElementById('chicken');
-			canvas = document.getElementById("game");  
-			if (canvas.getContext) {  
-	        	context = canvas.getContext("2d");
-				drawChicken(context);
+		var chicken = function() {
+			var x = 0;
+			var y = 0;
+			
+			return {
+				draw: function () {
+					context.drawImage(chickenImg, x, y);
+				}
 			}
 		};
 		
-		function drawChicken(context) {
-			context.drawImage(chicken, 0, 0);
-		}
+		window.onload = function() {
+			chickenImg = document.getElementById('chicken');
+			canvas = document.getElementById("game");  
+			if (canvas.getContext) {  
+	        	context = canvas.getContext("2d");
+				chickens.push(chicken());
+				chickens[0].draw();
+			}
+		};
 	</script>
 </head>
 <body>
