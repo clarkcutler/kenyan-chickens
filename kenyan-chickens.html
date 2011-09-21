@@ -18,6 +18,10 @@
 			return {
 				draw: function () {
 					context.drawImage(chickenImg, x, y);
+				},
+				move: function () {
+					x += 1;
+					y += 0.25;
 				}
 			}
 		};
@@ -28,7 +32,16 @@
 			if (canvas.getContext) {  
 	        	context = canvas.getContext("2d");
 				chickens.push(chicken());
-				chickens[0].draw();
+				
+				var id = setInterval(function() {
+					context.clearRect(0,0,640,480);
+					chickens[0].draw();
+					chickens[0].move();
+				}, 25);
+				
+				setTimeout(function () {
+					clearInterval(id);
+				}, 3000);
 			}
 		};
 	</script>
