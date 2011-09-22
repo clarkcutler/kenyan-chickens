@@ -27,16 +27,21 @@
 						y += 2*Math.random() - 1;
 					}
 				},
-				startDrag: function() {
+				startDrag: function(xClick, yClick) {
+					var xOffset = xClick - x;
+					var yOffset = yClick - y;
 					dragging = true;
 					canvas.onmousemove = function(e) {
-						x = e.x - canvas.offsetLeft;
-						y = e.y - canvas.offsetTop;
+						x = e.x - canvas.offsetLeft - xOffset;
+						y = e.y - canvas.offsetTop - yOffset;
 					}
 				},
 				endDrag: function() {
 					canvas.onmousemove = null;
 					dragging = false;
+				},
+				distanceFrom: function(x2, y2) {
+					return Math.sqrt(Math.pow(x + 24 - x2, 2) + Math.pow(y + 28 - y2, 2));
 				}
 			}
 		};
@@ -54,8 +59,13 @@
 					chickens[0].move();
 				}, 25);
 				
-				canvas.onmousedown = function() {
-					chickens[0].startDrag();
+				canvas.onmousedown = function(e) {
+					var x = e.x - canvas.offsetLeft;
+					var y = e.y - canvas.offsetTop;
+					var distance = chickens[0].distanceFrom(x, y);
+					if (distance < 25) {
+						chickens[0].startDrag(x, y);
+					}
 				}
 				
 				canvas.onmouseup = function () {
