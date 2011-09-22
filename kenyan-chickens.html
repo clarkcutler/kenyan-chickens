@@ -16,6 +16,7 @@
 		var hutX;
 		var hutY;
 		var animateId;
+		var score = 0;
 		
 		var chicken = function() {
 			var x = (640 - chickenImg.width)*Math.random();
@@ -84,8 +85,14 @@
 					});
 				}
 				
-				canvas.onmouseup = function () {
-					$.each(chickens, function(i) { chickens[i].endDrag(); });
+				canvas.onmouseup = function (e) {
+					$.each(chickens, function(i) {
+						if (chickens[i].distanceFrom(hutX + 70, hutY + 70) < 50) {
+							score += 1;
+							console.log("Score: " + score);
+						}
+						chickens[i].endDrag();
+					});
 				}
 			}
 		};
