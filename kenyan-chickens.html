@@ -52,24 +52,31 @@
 			if (canvas.getContext) {  
 	        	context = canvas.getContext("2d");
 				chickens.push(chicken());
+				chickens.push(chicken());
+				chickens.push(chicken());
 				
 				animateId = setInterval(function() {
 					context.clearRect(0,0,640,480);
-					chickens[0].draw();
-					chickens[0].move();
+					$.each(chickens, function (i) {
+						chickens[i].draw();
+						chickens[i].move();
+					});
 				}, 25);
 				
 				canvas.onmousedown = function(e) {
 					var x = e.x - canvas.offsetLeft;
 					var y = e.y - canvas.offsetTop;
-					var distance = chickens[0].distanceFrom(x, y);
-					if (distance < 25) {
-						chickens[0].startDrag(x, y);
-					}
+					
+					$.each(chickens, function(i) {
+						var distance = chickens[i].distanceFrom(x, y);
+						if (distance < 25) {
+							chickens[i].startDrag(x, y);
+						}
+					});
 				}
 				
 				canvas.onmouseup = function () {
-					chickens[0].endDrag();
+					$.each(chickens, function(i) { chickens[i].endDrag(); });
 				}
 			}
 		};
