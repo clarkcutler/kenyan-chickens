@@ -13,13 +13,13 @@
 		var context;
 		var chickens = [];
 		var hutImg;
-		var hutX = 640*Math.random();
-		var hutY = 480*Math.random();
+		var hutX;
+		var hutY;
 		var animateId;
 		
 		var chicken = function() {
-			var x = 640*Math.random();
-			var y = 480*Math.random();
+			var x = (640 - chickenImg.width)*Math.random();
+			var y = (480 - chickenImg.height)*Math.random();
 			var dragging = false;
 			
 			return {
@@ -54,6 +54,8 @@
 		window.onload = function() {
 			chickenImg = document.getElementById('chicken');
 			hutImg = document.getElementById('hut');
+			hutX = (640 - hutImg.width)*Math.random();
+			hutY = (480 - hutImg.height)*Math.random();
 			canvas = document.getElementById("game");  
 			if (canvas.getContext) {  
 	        	context = canvas.getContext("2d");
