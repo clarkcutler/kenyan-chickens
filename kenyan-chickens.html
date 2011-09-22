@@ -10,6 +10,9 @@
 		var canvas;
 		var context;
 		var chickens = [];
+		var hutImg;
+		var hutX = 640*Math.random();
+		var hutY = 480*Math.random();
 		var animateId;
 		
 		var chicken = function() {
@@ -48,6 +51,7 @@
 		
 		window.onload = function() {
 			chickenImg = document.getElementById('chicken');
+			hutImg = document.getElementById('hut');
 			canvas = document.getElementById("game");  
 			if (canvas.getContext) {  
 	        	context = canvas.getContext("2d");
@@ -57,6 +61,7 @@
 				
 				animateId = setInterval(function() {
 					context.clearRect(0,0,640,480);
+					context.drawImage(hutImg, hutX, hutY);
 					$.each(chickens, function (i) {
 						chickens[i].draw();
 						chickens[i].move();
@@ -90,6 +95,7 @@
 </head>
 <body>
 	<img style="display: none;" id="chicken" src="chicken.png">
+	<img style="display: none;" id="hut" src="hut.png">
 	<canvas id="game" width="640" height="480">
 		This game requires a browser that supports the HTML5 canvas element.
 	</canvas>
