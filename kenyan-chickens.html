@@ -15,14 +15,28 @@
 		var chicken = function() {
 			var x = 640*Math.random();
 			var y = 480*Math.random();
+			var dragging = false;
 			
 			return {
 				draw: function () {
 					context.drawImage(chickenImg, x, y);
 				},
 				move: function () {
-					x += 2*Math.random() - 1;
-					y += 2*Math.random() - 1;
+					if (!dragging) {
+						x += 2*Math.random() - 1;
+						y += 2*Math.random() - 1;
+					}
+				},
+				startDrag: function() {
+					dragging = true;
+					canvas.onmousemove = function(e) {
+						x = e.x - canvas.offsetLeft;
+						y = e.y - canvas.offsetTop;
+					}
+				},
+				endDrag: function() {
+					canvas.onmousemove = null;
+					dragging = false;
 				}
 			}
 		};
@@ -41,13 +55,11 @@
 				}, 25);
 				
 				canvas.onmousedown = function() {
-					canvas.onmousemove = function(e) {
-						console.log("(" + e.x + ", " + e.y + ")");
-					}
+					chickens[0].startDrag();
 				}
 				
 				canvas.onmouseup = function () {
-					canvas.onmousemove = null;
+					chickens[0].endDrag();
 				}
 			}
 		};
@@ -56,7 +68,7 @@
 			clearInterval(animateId);
 		}
 		
-		setTimeout(stop, 5000);
+		setTimeout(stop, 10000);
 	</script>
 </head>
 <body>
