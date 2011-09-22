@@ -39,12 +39,24 @@
 					chickens[0].draw();
 					chickens[0].move();
 				}, 25);
+				
+				canvas.onmousedown = function() {
+					canvas.onmousemove = function(e) {
+						console.log("(" + e.x + ", " + e.y + ")");
+					}
+				}
+				
+				canvas.onmouseup = function () {
+					canvas.onmousemove = null;
+				}
 			}
 		};
 		
 		function stop() {
 			clearInterval(animateId);
 		}
+		
+		setTimeout(stop, 5000);
 	</script>
 </head>
 <body>
