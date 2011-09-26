@@ -22,24 +22,27 @@
 			var x = (640 - chickenImg.width)*Math.random();
 			var y = (480 - chickenImg.height)*Math.random();
 			var dragging = false;
+			var caught = false;
 			
 			return {
 				draw: function () {
 					context.drawImage(chickenImg, x, y);
 				},
 				move: function () {
-					if (!dragging) {
+					if (!dragging && !caught) {
 						x += 2*Math.random() - 1;
 						y += 2*Math.random() - 1;
 					}
 				},
 				startDrag: function(xClick, yClick) {
-					var xOffset = xClick - x;
-					var yOffset = yClick - y;
-					dragging = true;
-					canvas.onmousemove = function(e) {
-						x = e.x - canvas.offsetLeft - xOffset;
-						y = e.y - canvas.offsetTop - yOffset;
+					if (!caught) {
+						var xOffset = xClick - x;
+						var yOffset = yClick - y;
+						dragging = true;
+						canvas.onmousemove = function(e) {
+							x = e.x - canvas.offsetLeft - xOffset;
+							y = e.y - canvas.offsetTop - yOffset;
+						}
 					}
 				},
 				endDrag: function() {
@@ -48,6 +51,11 @@
 				},
 				distanceFrom: function(x2, y2) {
 					return Math.sqrt(Math.pow(x + 24 - x2, 2) + Math.pow(y + 28 - y2, 2));
+				},
+				catch: function() {
+					isNewlyCaught = !caught;
+					caught = true;
+					return isNewlyCaught;
 				}
 			}
 		};
@@ -88,8 +96,10 @@
 				canvas.onmouseup = function (e) {
 					$.each(chickens, function(i) {
 						if (chickens[i].distanceFrom(hutX + 70, hutY + 70) < 50) {
-							score += 1;
-							console.log("Score: " + score);
+							if (chickens[i].catch()) {
+								score += 1;
+								console.log("Score: " + score);
+							}
 						}
 						chickens[i].endDrag();
 					});
