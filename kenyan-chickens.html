@@ -5,6 +5,7 @@
 	<title>Chickens in Kenya</title>
 	<style>
 		#game{ border: 1px solid black; display: block; margin: auto;}
+		#score-text{ text-align: center; font-size: 36px; font-family: 'PTF Nordic Rnd', 'Arial';}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script>
@@ -102,7 +103,7 @@
 						if (chickens[i].distanceFrom(hutX + 70, hutY + 70) < 50) {
 							if (chickens[i].catch()) {
 								score += 1;
-								console.log("Score: " + score);
+								$('#score').text(score);								
 							}
 						}
 						chickens[i].endDrag();
@@ -115,18 +116,20 @@
 			clearInterval(animateId);
 		}
 		
-		setTimeout(stop, 10000);
+		setTimeout(stop, 60000);
 	</script>
 </head>
 <body>
-	<p>Work-in-progress.</p>
-	<p>Inspired by <a target="_blank" href="http://newswatch.nationalgeographic.com/2011/04/26/“farming-out”-agricultural-advice-through-radio-and-sms/">"Farming Out" Agricultural Advice Through Radio and SMS</a> by National Geographic.</p>
-	<p>Intended to be part of the <a target="_blank" href="http://5050.gd/">50/50 Project</a> to provide relief for the East African famine.</p>
 	<img style="display: none;" id="chicken" src="chicken.png">
 	<img style="display: none;" id="hut" src="hut.png">
 	<canvas id="game" width="640" height="480">
 		This game requires a browser that supports the HTML5 canvas element.
 	</canvas>
+	<p id="score-text">Score: <span id="score">0</span></p>
+
+	<p>Work-in-progress.</p>
+	<p>Inspired by <a target="_blank" href="http://newswatch.nationalgeographic.com/2011/04/26/“farming-out”-agricultural-advice-through-radio-and-sms/">"Farming Out" Agricultural Advice Through Radio and SMS</a> by National Geographic.</p>
+	<p>Intended to be part of the <a target="_blank" href="http://5050.gd/">50/50 Project</a> to provide relief for the East African famine.</p>
 	
 </body>
 </html>
